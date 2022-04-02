@@ -35,7 +35,7 @@ Host $aliasname
     #
     # remote: vi /etc/ssh/sshd_config && StrictModes --> no && service sshd restart
     # remote: useradd -g lamp1 -G root -m noah
-    scp ~/.ssh/id_rsa_$keyname.pub $username@$aliasname:/home/username/.ssh
+    scp ~/.ssh/id_rsa_$keyname.pub $username@$aliasname:/home/$username/.ssh
     echo "eg. git clone $username@$aliasname:NenX/frequently-used-scripts.git"
     echo "or ssh $username@$aliasname"
 }
