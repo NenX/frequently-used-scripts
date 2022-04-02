@@ -1,27 +1,24 @@
-getValue()
-{
-    read -p "$1" value
-    value=${value:=$2}
-    echo "value is $value"
-}
+# for: getUserInput
+source utils.sh
+
 main() #alias
 {
-    getValue "enter keyname:" "newKeyname"
+    getUserInput "enter keyname:" "newKeyname"
     keyname=$value
 
-    getValue "enter email:" "newEmail@qq.com"
+    getUserInput "enter email:" "newEmail@qq.com"
     email=$value
 
-    getValue "enter aliasname:" "alias.github.com"
+    getUserInput "enter aliasname:" "alias.github.com"
     aliasname=$value
 
-    getValue "enter hostname:" "github.com"
+    getUserInput "enter hostname:" "github.com"
     hostname=$value
 
-    # getValue "enter port:" "22"
+    # getUserInput "enter port:" "22"
     # port=$value
 
-    getValue "enter username:" "git"
+    getUserInput "enter username:" "git"
     username=$value
 
     ssh-keygen -t rsa -C $email -f "$HOME/.ssh/id_rsa_$keyname"
@@ -36,6 +33,8 @@ Host $aliasname
     # remote: vi /etc/ssh/sshd_config && StrictModes --> no && service sshd restart
     # remote: useradd -g lamp1 -G root -m noah
     scp ~/.ssh/id_rsa_$keyname.pub $username@$aliasname:/home/$username/.ssh
+    ssh $username@$aliasname "cat /home/$username/.ssh/id_rsa_$keyname.pub >> /home/$username/.ssh/authorized_keys" 
+
     echo "eg. git clone $username@$aliasname:NenX/frequently-used-scripts.git"
     echo "or ssh $username@$aliasname"
 }
