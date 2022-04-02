@@ -3,7 +3,7 @@ source utils/index.sh
 
 main()
 {
-    getUserInput "enter keyname:" "newKeyname"
+    getUserInput "enter keyname:" "from_`cat /etc/hostname`_key1"
     filename=id_rsa_git_$value
 
     getUserInput "enter email:" "newEmail@qq.com"
