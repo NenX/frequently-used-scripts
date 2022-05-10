@@ -9,7 +9,7 @@ main()
     getUserInput "enter email:" "newEmail@qq.com"
     email=$value
 
-    getUserInput "enter aliasname:" "alias.github.com"
+    getUserInput "enter aliasname:" "github.com"
     aliasname=$value
 
     getUserInput "enter hostname:" "github.com"
