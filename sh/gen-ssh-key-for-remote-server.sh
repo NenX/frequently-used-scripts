@@ -30,10 +30,16 @@ Host $aliasname
     User $username
     IdentityFile ~/.ssh/$filename" >> ~/.ssh/config
     
+    if test $username = "root"; then
+        homePath="/root"
+    else
+        homePath="/home/$username"
+    fi
+
     # remote: vi /etc/ssh/sshd_config && StrictModes --> no && service sshd restart
     # remote: useradd -g noah -G root -m noah
-    scp ~/.ssh/$filename.pub $username@$aliasname:/home/$username/.ssh
-    ssh $username@$aliasname "cat /home/$username/.ssh/$filename.pub >> /home/$username/.ssh/authorized_keys" 
+    scp ~/.ssh/$filename.pub $username@$aliasname:$homePath/.ssh
+    ssh $username@$aliasname "cat $homePath/.ssh/$filename.pub >> $homePath/.ssh/authorized_keys" 
 
     echoBlue "fetching files testing:"
     ssh $username@$aliasname "ls -lah ~/.ssh"
