@@ -1,27 +1,34 @@
+#!/usr/bin/env bash
+
 currentDir=`dirname $0`
 cd $currentDir
 
-# for: getUserInput
+# for: get_user_input
 source utils/index.sh
 
 main() #alias
 {
-    getUserInput "enter keyname:" "from_`cat /etc/hostname`_key1"
+    get_user_input "enter keyname:" "from_`cat /etc/hostname`_key1"
     filename=id_rsa_server_$value
 
-    getUserInput "enter email:" "newEmail@qq.com"
+    get_user_input "enter email:" "newEmail@qq.com"
     email=$value
 
-    getUserInput "enter aliasname:" "alias_server1"
+    get_user_input "enter aliasname:" "alias_server1"
     aliasname=$value
 
-    getUserInput "enter hostname:" "192.168.1.1"
+    get_user_input "enter hostname:" "192.168.1.1"
     hostname=$value
 
-    # getUserInput "enter port:" "22"
+    if file_contains ~/.ssh/config $hostname
+    then
+        echoRed "error: host $hostname already exists!!!"
+        exit 1
+    fi
+    # get_user_input "enter port:" "22"
     # port=$value
 
-    getUserInput "enter username:" "root"
+    get_user_input "enter username:" "root"
     username=$value
 
     ssh-keygen -t rsa -C $email -f "$HOME/.ssh/$filename"

@@ -1,24 +1,26 @@
+#!/usr/bin/env bash
+
 currentDir=`dirname $0`
 cd $currentDir
 
-# for: getUserInput echoBLue echoGreen
+# for: get_user_input echoBLue echoGreen
 source utils/index.sh
 
 main()
 {
-    getUserInput "enter keyname:" "from_`cat /etc/hostname`_key1"
+    get_user_input "enter keyname:" "from_`cat /etc/hostname`_key1"
     filename=id_rsa_git_$value
 
-    getUserInput "enter email:" "newEmail@qq.com"
+    get_user_input "enter email:" "newEmail@qq.com"
     email=$value
 
-    getUserInput "enter aliasname:" "github.com"
+    get_user_input "enter aliasname:" "github.com"
     aliasname=$value
 
-    getUserInput "enter hostname:" "github.com"
+    get_user_input "enter hostname:" "github.com"
     hostname=$value
 
-    # getUserInput "enter port:" "22"
+    # get_user_input "enter port:" "22"
     # port=$value
 
     ssh-keygen -t rsa -C $email -f "$HOME/.ssh/$filename"
