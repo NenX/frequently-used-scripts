@@ -1,3 +1,6 @@
+currentDir=`dirname $0`
+cd $currentDir
+
 # for: getUserInput echoBLue echoGreen
 source utils/index.sh
 
