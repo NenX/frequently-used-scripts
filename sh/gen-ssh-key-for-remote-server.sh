@@ -8,17 +8,20 @@ source utils/index.sh
 
 main() #alias
 {
-    get_user_input "enter keyname:" "from_`cat /etc/hostname`_key1"
-    filename=id_rsa_server_$value
 
-    get_user_input "enter email:" "newEmail@qq.com"
-    email=$value
+    get_user_input "enter hostname:" "192.168.1.1"
+    hostname=$value
 
     get_user_input "enter aliasname:" "alias_server1"
     aliasname=$value
 
-    get_user_input "enter hostname:" "192.168.1.1"
-    hostname=$value
+
+
+    get_user_input "enter filename:" "from_`cat /etc/hostname`_to_$aliasname"
+    filename=id_rsa_server_$value
+
+    get_user_input "enter email:" "newEmail@qq.com"
+    email=$value
 
     if file_contains ~/.ssh/config $hostname
     then
@@ -48,8 +51,11 @@ Host $aliasname
 
     # remote: vi /etc/ssh/sshd_config && StrictModes --> no && service sshd restart
     # remote: useradd -g noah -G root -m noah
-    scp ~/.ssh/$filename.pub $username@$aliasname:$homePath/.ssh
-    ssh $username@$aliasname "cat $homePath/.ssh/$filename.pub >> $homePath/.ssh/authorized_keys" 
+    
+    # scp ~/.ssh/$filename.pub $username@$aliasname:$homePath/.ssh
+    # ssh $username@$aliasname "cat $homePath/.ssh/$filename.pub >> $homePath/.ssh/authorized_keys" 
+
+    ssh-copy-id -i ~/.ssh/$filename.pub $username@$aliasname
 
     echoBlue "fetching files testing:"
     ssh $username@$aliasname "ls -lah ~/.ssh"
