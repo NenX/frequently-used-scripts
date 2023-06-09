@@ -1,3 +1,5 @@
+#! /bin/bash
+
 test_file=text_with_ansi_escape_code.txt
 yellow_text=`echo -e "$(<$test_file)"`
 
